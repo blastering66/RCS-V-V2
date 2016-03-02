@@ -2,13 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="150dp">
 
-    <ImageView
-        android:id="@+id/img_checked"
-        android:src="@drawable/img_check"
-        android:visibility="invisible"
-        android:layout_centerInParent="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+
 
     <ImageView
         android:id="@+id/img"
@@ -16,16 +10,7 @@
                 android:layout_width="match_parent"
         android:layout_height="150dp" />
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_alignParentBottom="true"
-        android:text="Titlenya"
-        android:padding="10dp"
-        android:ellipsize="marquee"
-        android:textColor="@color/white"
-        android:background="@color/bg_black_transparan"
-        android:singleLine="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+
 
 </RelativeLayout>

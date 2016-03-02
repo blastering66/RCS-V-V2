@@ -4,10 +4,9 @@
     tools:context="com.rcs.htctools.Splashscreen_Activity" >
 
     <item
-        android:id="@+id/action_upload_photo"
-        android:title="Upload"
+        android:id="@+id/action_done"
+        android:title="Done"
         android:menuCategory="system"
-        android:icon="@android:drawable/ic_menu_upload"
         app:showAsAction="always"/>
 
 </menu>

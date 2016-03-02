@@ -15,4 +15,10 @@ public class RowDataGallery {
         this.path = path;
 this.bitmap = bitmap;
     }
+
+    public RowDataGallery( String path, Bitmap bitmap) {
+        this.title = title;
+        this.path = path;
+        this.bitmap = bitmap;
+    }
 }

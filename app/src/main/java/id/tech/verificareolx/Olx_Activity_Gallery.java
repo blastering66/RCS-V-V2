@@ -36,9 +36,12 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import id.tech.util.Parameter_Collections;
 import id.tech.util.Public_Functions;
+import id.tech.util.RowDataGallery;
 
 public class Olx_Activity_Gallery extends AppCompatActivity {
     Button btn;
@@ -49,6 +52,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
     EditText ed_ket;
     SharedPreferences spf;
     private String id_pegawai;
+    List<RowDataGallery> data_selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +123,19 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 finish();
                 break;
 
-            case R.id.action_send_updatebranding:
+            case R.id.action_upload_photo:
 
                 if (Public_Functions.isNetworkAvailable(getApplicationContext())) {
 //				boolean b = true;
 //				if (b) {
-                    new Async_SubmitGallery().execute();
+                    if(data_selected != null){
+                        new Async_SubmitGallery().execute();
+                    }else{
+                        Toast.makeText(getApplicationContext(),
+                                "Harap Input Foto terlebih dahulu",
+                                Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     Toast.makeText(getApplicationContext(),
                             "No Internet Connection, Cek Your Network",
@@ -173,8 +184,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             // TODO Auto-generated method stub
-            return uploadDataForm(mUrl_Img_00, mUrl_Img_01, mUrl_Img_02, mUrl_Img_03
-                    , mUrl_Img_04, mUrl_Img_05, mUrl_Img_06);
+            return uploadDataForm();
         }
 
         @Override
@@ -220,9 +230,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
 
         }
 
-        private String uploadDataForm(String url_gambar00, String url_gambar01,
-                                      String url_gambar02, String url_gambar03, String url_gambar04,
-                                      String url_gambar05, String url_gambar06){
+        private String uploadDataForm(){
             HttpURLConnection conn = null;
             DataOutputStream dos = null;
             String lineEnd = "\r\n";
@@ -232,31 +240,40 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
             byte[] buffer;
             int maxBufferSize = 1 * 1024 * 1024;
 
+            for(int i=0; i < data_selected.size(); i++){
+                if(i == 0){
+                    url_file00 = data_selected.get(i).path;
+                }else if(i == 1){
+                    url_file01 = data_selected.get(i).path;
+                }else if(i == 2){
+                    url_file02 = data_selected.get(i).path;
+                }else if(i == 3){
+                    url_file03 = data_selected.get(i).path;
+                }else if(i == 4){
+                    url_file04 = data_selected.get(i).path;
+                }else if(i == 5){
+                    url_file05 = data_selected.get(i).path;
+                }else if(i == 6){
+                    url_file06 = data_selected.get(i).path;
+                }
+            }
 
-
-            if(url_gambar00 != null){
-                url_file00 = url_gambar00;
+           if(url_file00 != null){
                 sourceFile00 = new File(url_file00);
             }
-            if(url_gambar01 != null){
-                url_file01 = url_gambar01;
+            if(url_file01 != null){
                 sourceFile01 = new File(url_file01);
             }
-            if(url_gambar02 != null){
-                url_file02 = url_gambar02;
+            if(url_file02 != null){
                 sourceFile02 = new File(url_file02);
-            }if(url_gambar03 != null){
-                url_file03 = url_gambar03;
+            }if(url_file03 != null){
                 sourceFile03 = new File(url_file03);
-            }if(url_gambar04 != null){
-                url_file04 = url_gambar04;
+            }if(url_file04 != null){
                 sourceFile04 = new File(url_file04);
             }
-            if(url_gambar05 != null){
-                url_file05 = url_gambar05;
+            if(url_file05 != null){
                 sourceFile05 = new File(url_file05);
-            }if(url_gambar06 != null){
-                url_file06 = url_gambar06;
+            }if(url_file06 != null){
                 sourceFile06 = new File(url_file06);
             }
 
@@ -272,31 +289,31 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 conn.setRequestProperty("ENCTYPE", "multipart/form-data");
                 conn.setRequestProperty("Content-Type",
                         "multipart/form-data;boundary=" + boundary);
-                if(url_gambar00 != null){
+                if(url_file00 != null){
                     conn.setRequestProperty("img0", url_file00);
                 }
-                if(url_gambar01 != null){
+                if(url_file02 != null){
                     conn.setRequestProperty("img1", url_file01);
                 }
-                if(url_gambar02 != null){
+                if(url_file02 != null){
                     conn.setRequestProperty("img2", url_file02);
                 }
-                if(url_gambar03 != null){
+                if(url_file03 != null){
                     conn.setRequestProperty("img3", url_file03);
                 }
-                if(url_gambar04 != null){
+                if(url_file04 != null){
                     conn.setRequestProperty("img4", url_file04);
                 }
-                if(url_gambar05 != null){
+                if(url_file05 != null){
                     conn.setRequestProperty("img5", url_file05);
                 }
-                if(url_gambar06 != null){
+                if(url_file06 != null){
                     conn.setRequestProperty("img6", url_file06);
                 }
 
                 dos = new DataOutputStream(conn.getOutputStream());
 
-                if(url_gambar00 != null){
+                if(url_file00 != null){
                     fileInputStream00 = new FileInputStream(
                             sourceFile00);
                     //img 00
@@ -321,7 +338,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                }if(url_gambar01 != null){
+                }if(url_file01 != null){
                     fileInputStream01 = new FileInputStream(
                             sourceFile01);
                     //img 01
@@ -346,7 +363,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                }if(url_gambar02 != null){
+                }if(url_file02 != null){
                     fileInputStream02 = new FileInputStream(
                             sourceFile02);
                     //img 02
@@ -370,7 +387,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
 
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                }if(url_gambar03 != null){
+                }if(url_file03 != null){
                     fileInputStream03 = new FileInputStream(
                             sourceFile03);
                     //img 03
@@ -395,7 +412,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                }if(url_gambar04 != null){
+                }if(url_file04 != null){
                     fileInputStream04 = new FileInputStream(
                             sourceFile04);
                     //img 01
@@ -420,7 +437,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                }if(url_gambar05 != null){
+                }if(sourceFile05 != null){
                     fileInputStream05 = new FileInputStream(
                             sourceFile05);
                     //img 02
@@ -444,7 +461,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
 
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                }if(url_gambar06 != null){
+                }if(url_file06 != null){
                     fileInputStream06 = new FileInputStream(
                             sourceFile06);
                     //img 03
@@ -499,12 +516,6 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 serverRespondCode = conn.getResponseCode();
                 respondMessage = conn.getResponseMessage();
 
-                Log.e("Param  URL img  = ", url_gambar00);
-                Log.e("Param  Kind  = ", Parameter_Collections.KIND_ACTIVITY_PHOTO);
-                Log.e("Param  id_pegawai  = ", id_pegawai);
-                Log.e("Param  desc  = ", cDesc);
-                Log.e("RESPOND", respondMessage);
-
                 if (serverRespondCode == 200) {
                     Log.e("CODE ", "Success Upload");
                 } else {
@@ -512,19 +523,19 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 }
 
 
-                if(url_gambar00 != null){
+                if(url_file00 != null){
                     fileInputStream00.close();
-                }if(url_gambar01 != null){
+                }if(url_file01 != null){
                     fileInputStream01.close();
-                }if(url_gambar02 != null){
+                }if(url_file02 != null){
                     fileInputStream02.close();
-                }if(url_gambar03 != null){
+                }if(url_file03 != null){
                     fileInputStream03.close();
-                }if(url_gambar04 != null){
+                }if(url_file04 != null){
                     fileInputStream04.close();
-                }if(url_gambar05 != null){
+                }if(url_file05 != null){
                     fileInputStream05.close();
-                }if(url_gambar06 != null){
+                }if(url_file06 != null){
                     fileInputStream06.close();
                 }
 
@@ -560,44 +571,36 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
 
             if (requestCode == CODE_UPLOAD) {
 
-                if (mUrl_Img_00 == null) {
-                    horizontalScroll.setVisibility(View.VISIBLE);
+                data_selected = Parameter_Collections.data_selected;
 
-                    mUrl_Img_00 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_00);
-                    imgview_00.setVisibility(View.VISIBLE);
-                    imgview_00.setImageBitmap(b);
-                } else if (mUrl_Img_01 == null) {
-                    mUrl_Img_01 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_01);
-                    imgview_01.setVisibility(View.VISIBLE);
-                    imgview_01.setImageBitmap(b);
-                } else if (mUrl_Img_02 == null) {
-                    mUrl_Img_02 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_02);
-                    imgview_02.setVisibility(View.VISIBLE);
-                    imgview_02.setImageBitmap(b);
-                } else if (mUrl_Img_03 == null) {
-                    mUrl_Img_03 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_03);
-                    imgview_03.setVisibility(View.VISIBLE);
-                    imgview_03.setImageBitmap(b);
-                }else if (mUrl_Img_04 == null) {
-                    mUrl_Img_04 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_04);
-                    imgview_04.setVisibility(View.VISIBLE);
-                    imgview_04.setImageBitmap(b);
-                } else if (mUrl_Img_05 == null) {
-                    mUrl_Img_05 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_05);
-                    imgview_05.setVisibility(View.VISIBLE);
-                    imgview_05.setImageBitmap(b);
-                } else if (mUrl_Img_06 == null) {
-                    mUrl_Img_06 = data.getStringExtra("mUrl_Img");
-                    Bitmap b = BitmapFactory.decodeFile(mUrl_Img_06);
-                    imgview_06.setVisibility(View.VISIBLE);
-                    imgview_06.setImageBitmap(b);
+                for(int i=0; i< data_selected.size(); i++){
+                    Bitmap b = BitmapFactory.decodeFile(data_selected.get(i).path);
+                    if (i == 0) {
+                        horizontalScroll.setVisibility(View.VISIBLE);
+                        imgview_00.setVisibility(View.VISIBLE);
+                        imgview_00.setImageBitmap(b);
+                    } else if (i == 1) {
+                        imgview_01.setVisibility(View.VISIBLE);
+                        imgview_01.setImageBitmap(b);
+                    } else if (i == 2) {
+                        imgview_02.setVisibility(View.VISIBLE);
+                        imgview_02.setImageBitmap(b);
+                    } else if (i == 3) {
+                        imgview_03.setVisibility(View.VISIBLE);
+                        imgview_03.setImageBitmap(b);
+                    }else if (i == 4) {
+                        imgview_04.setVisibility(View.VISIBLE);
+                        imgview_04.setImageBitmap(b);
+                    } else if (i == 5) {
+                        imgview_05.setVisibility(View.VISIBLE);
+                        imgview_05.setImageBitmap(b);
+                    } else if (i == 6) {
+                        imgview_06.setVisibility(View.VISIBLE);
+                        imgview_06.setImageBitmap(b);
+                    }
                 }
+
+
 
             }
 

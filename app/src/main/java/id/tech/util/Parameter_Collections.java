@@ -1,6 +1,11 @@
 package id.tech.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Parameter_Collections {
+
+	public static List<RowDataGallery> data_selected;
 
 	public static String FROM_SURAT = "from_surat";
 	public static String TAG_VIEW_IMG = "img_ayat";

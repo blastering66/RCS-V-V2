@@ -16,6 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import id.tech.util.Olx_RecyclerAdapter_Gallery;
 import id.tech.util.Olx_RecyclerAdapter_History;
+import id.tech.util.Public_Functions;
 import id.tech.util.RowDataGallery;
 
 public class Olx_GalleryView extends AppCompatActivity {
@@ -86,9 +91,7 @@ public class Olx_GalleryView extends AppCompatActivity {
                         MediaStore.Images.Thumbnails.MICRO_KIND, null);
                 arrPath[i] = imageCursor.getString(dataColumnIndex);
 
-                String titlenya = getFileNameByUri(getApplicationContext(), Uri.fromFile(new File(arrPath[i])));
-
-                data.add(new RowDataGallery(titlenya,  arrPath[i], thumbnails[i]));
+                data.add(new RowDataGallery(arrPath[i], thumbnails[i]));
             }
             return null;
         }
@@ -103,29 +106,29 @@ public class Olx_GalleryView extends AppCompatActivity {
         }
     }
 
-    public static String getFileNameByUri(Context context, Uri uri)
-    {
-        String fileName="unknown";//default fileName
-        Uri filePathUri = uri;
-        if (uri.getScheme().toString().compareTo("content")==0)
-        {
-            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-            if (cursor.moveToFirst())
-            {
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);//Instead of "MediaStore.Images.Media.DATA" can be used "_data"
-                filePathUri = Uri.parse(cursor.getString(column_index));
-                fileName = filePathUri.getLastPathSegment().toString();
-            }
-        }
-        else if (uri.getScheme().compareTo("file")==0)
-        {
-            fileName = filePathUri.getLastPathSegment().toString();
-        }
-        else
-        {
-            fileName = fileName+"_"+filePathUri.getLastPathSegment();
-        }
-        return fileName;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.select_photo, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            case R.id.action_done:
+                setResult(RESULT_OK);
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

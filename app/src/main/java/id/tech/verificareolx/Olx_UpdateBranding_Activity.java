@@ -128,45 +128,43 @@ public class Olx_UpdateBranding_Activity extends ActionBarActivity{
 			finish();
 			break;
 			
-		case R.id.action_send_updatebranding:
-			
-			GPSTracker gps = new GPSTracker(getApplicationContext());
-			if (gps.canGetLocation()) {
-				double latitude = gps.getLatitude();
-				double longitude = gps.getLongitude();			
-				
-				spf.edit().putString(Parameter_Collections.TAG_LONGITUDE_NOW, String.valueOf(longitude)).commit();
-				spf.edit().putString(Parameter_Collections.TAG_LATITUDE_NOW, String.valueOf(latitude)).commit();
-				
-
-				if (Public_Functions.isNetworkAvailable(getApplicationContext())) {
-//				boolean b = true;
-//				if (b) {
-					new Async_SubmitUpdateBranding().execute();
-				}else {
-					Toast.makeText(getApplicationContext(),
-							"No Internet Connection, Cek Your Network",
-							Toast.LENGTH_LONG).show();
-				}
-				
-
-			} else {
-				
-				if(Public_Functions.isNetworkAvailable(getApplicationContext())){
-					new Async_SubmitUpdateBranding().execute();
-				}else {
-					Toast.makeText(getApplicationContext(),
-							"No Internet Connection, Cek Your Network",
-							Toast.LENGTH_LONG).show();
-				}
-				
-				Toast.makeText(
-						getApplicationContext(),
-						"Can not get your location now, Sent your last locations",
-						Toast.LENGTH_LONG).show();
-			}
-			
-			break;
+//		case R.id.action_send_updatebranding:
+//
+//			GPSTracker gps = new GPSTracker(getApplicationContext());
+//			if (gps.canGetLocation()) {
+//				double latitude = gps.getLatitude();
+//				double longitude = gps.getLongitude();
+//
+//				spf.edit().putString(Parameter_Collections.TAG_LONGITUDE_NOW, String.valueOf(longitude)).commit();
+//				spf.edit().putString(Parameter_Collections.TAG_LATITUDE_NOW, String.valueOf(latitude)).commit();
+//
+//
+//				if (Public_Functions.isNetworkAvailable(getApplicationContext())) {
+//
+//					new Async_SubmitUpdateBranding().execute();
+//				}else {
+//					Toast.makeText(getApplicationContext(),
+//							"No Internet Connection, Cek Your Network",
+//							Toast.LENGTH_LONG).show();
+//				}
+//
+//
+//			} else {
+//
+//				if(Public_Functions.isNetworkAvailable(getApplicationContext())){
+//					new Async_SubmitUpdateBranding().execute();
+//				}else {
+//					Toast.makeText(getApplicationContext(),
+//							"No Internet Connection, Cek Your Network",
+//							Toast.LENGTH_LONG).show();
+//				}
+//
+//				Toast.makeText(
+//						getApplicationContext(),
+//						"Can not get your location now, Sent your last locations",
+//						Toast.LENGTH_LONG).show();
+//			}
+//			break;
 
 		default:
 			break;

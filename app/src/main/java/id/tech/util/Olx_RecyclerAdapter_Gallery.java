@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.pkmmte.view.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.tech.verificareolx.R;
@@ -23,12 +24,14 @@ import id.tech.verificareolx.R;
 public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_RecyclerAdapter_Gallery.ViewHolder>{
     private Activity activity_adapter;
     private Context context_adapter;
-    private List<RowDataGallery> data;
+    private List<RowDataGallery> data, selected;
 
     public Olx_RecyclerAdapter_Gallery(Activity activity_adapter, Context context_adapter, List<RowDataGallery> data) {
         this.activity_adapter = activity_adapter;
         this.context_adapter = context_adapter;
         this.data = data;
+
+        selected = new ArrayList<>();
     }
 
 
@@ -38,25 +41,26 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final RowDataGallery item = data.get(position);
 
         holder.img.setImageBitmap(item.bitmap);
-//        holder.tv_nama.setText(item.title);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context_adapter, item.path, Toast.LENGTH_LONG).show();
 
-                holder.img_checked.setVisibility(View.VISIBLE);
+                selectedImage(position);
 
-//                Intent intent = new Intent();
-//                intent.putExtra("mUrl_Img", item.path);
-//                activity_adapter.setResult(Activity.RESULT_OK, intent);
-//                activity_adapter.finish();;
             }
         });
 
+    }
+
+    private void selectedImage(int positiion){
+        selected.add(data.get(positiion));
+        Parameter_Collections.data_selected = selected;
+        data.remove(positiion);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -68,15 +72,13 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_nama;
-        public ImageView img, img_checked;
+                public ImageView img;
+
         private Activity activity;
 
         public ViewHolder(View v, Activity activity) {
             super(v);
-            tv_nama = (TextView) v.findViewById(R.id.tv_nama);
             img = (ImageView) v.findViewById(R.id.img);
-            img_checked = (ImageView) v.findViewById(R.id.img_checked);
             this.activity = activity;
 
         }
