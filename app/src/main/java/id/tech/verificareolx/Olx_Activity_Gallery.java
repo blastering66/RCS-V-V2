@@ -90,11 +90,13 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+//                Intent upload = new Intent(getApplicationContext(),
+//                        Olx_UploadImageDialog.class);
+//                startActivityForResult(upload, CODE_UPLOAD);
+
                 Intent upload = new Intent(getApplicationContext(),
-                        Olx_UploadImageDialog.class);
+                        Olx_GalleryView.class);
                 startActivityForResult(upload, CODE_UPLOAD);
-                // adapter = new CustomAdapter_Img(getApplicationContext(), 0,
-                // 0, data);
 
             }
         });
