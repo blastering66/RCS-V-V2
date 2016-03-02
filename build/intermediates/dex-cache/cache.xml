@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Workspace_Android_Github\RCS-V-X\app\build\intermediates\exploded-aar\RCS-V-X\libraryAndroidQuickResponseCode\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="999ca3bd2f387b78743e6e87f7384ed5d8c5c104">
+        <dex dex="D:\Workspace_Android_Github\RCS-V-X\app\build\intermediates\pre-dexed\debug\classes-c8242fbfb618d22ff8e6eca963d3da030949af2c.jar" />
+    </item>
+
+</items>
