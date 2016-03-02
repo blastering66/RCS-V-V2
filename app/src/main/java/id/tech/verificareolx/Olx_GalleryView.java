@@ -32,7 +32,7 @@ import id.tech.util.Olx_RecyclerAdapter_History;
 import id.tech.util.Public_Functions;
 import id.tech.util.RowDataGallery;
 
-public class Olx_GalleryView extends AppCompatActivity {
+public class Olx_GalleryView extends AppCompatActivity implements Olx_RecyclerAdapter_Gallery.onSelectedImageInterface{
     RecyclerView rv ;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
@@ -60,13 +60,18 @@ public class Olx_GalleryView extends AppCompatActivity {
 
     }
 
+    @Override
+    public void changeActionbarTitle(int size_selected) {
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'> "+ size_selected + " Selected </font>"));
+    }
+
     private class Async_LoadGallery extends AsyncTask<Void,Void,Void>{
-        Olx_DialogFragmentProgress pDialog;
+        Olx_DialogFragmentLoadingGallery pDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new Olx_DialogFragmentProgress();
+            pDialog = new Olx_DialogFragmentLoadingGallery();
             pDialog.show(getSupportFragmentManager(),"");
 
             data = new ArrayList<RowDataGallery>();

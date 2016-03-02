@@ -25,6 +25,7 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
     private Activity activity_adapter;
     private Context context_adapter;
     private List<RowDataGallery> data, selected;
+    private onSelectedImageInterface listener;
 
     public Olx_RecyclerAdapter_Gallery(Activity activity_adapter, Context context_adapter, List<RowDataGallery> data) {
         this.activity_adapter = activity_adapter;
@@ -34,7 +35,6 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
         selected = new ArrayList<>();
     }
 
-
     @Override
     public int getItemCount() {
         return data.size();
@@ -43,6 +43,12 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final RowDataGallery item = data.get(position);
+
+        try{
+            listener = (onSelectedImageInterface)activity_adapter;
+        }catch (ClassCastException e){
+
+        }
 
         holder.img.setImageBitmap(item.bitmap);
         holder.img.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +62,23 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
 
     }
 
+    public interface onSelectedImageInterface{
+        public void changeActionbarTitle(int size_selected);
+    }
+
     private void selectedImage(int positiion){
-        selected.add(data.get(positiion));
-        Parameter_Collections.data_selected = selected;
-        data.remove(positiion);
-        notifyDataSetChanged();
+
+        if(selected.size() >= 7 ){
+            Toast.makeText(context_adapter, "Maksimal 7 Gambar", Toast.LENGTH_LONG).show();
+        }else{
+            selected.add(data.get(positiion));
+            Parameter_Collections.data_selected = selected;
+            listener.changeActionbarTitle(selected.size());
+            data.remove(positiion);
+            notifyDataSetChanged();
+
+        }
+
     }
 
     @Override
