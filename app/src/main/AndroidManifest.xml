@@ -5,6 +5,8 @@
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -69,6 +71,10 @@
             android:theme="@style/ToolBarStyle"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name="id.tech.verificareolx.Olx_CameraCapture"
+            android:theme="@style/ToolBarStyle"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="id.tech.verificareolx.HistoryNotification_Activity"

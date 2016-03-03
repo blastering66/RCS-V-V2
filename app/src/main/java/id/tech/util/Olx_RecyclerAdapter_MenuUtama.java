@@ -14,9 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import id.tech.verificareolx.Olx_Activity_Gallery;
+import id.tech.verificareolx.Olx_CameraCapture;
 import id.tech.verificareolx.Olx_DialogAbsen;
 import id.tech.verificareolx.Olx_Activity_History_TabSlider;
 import id.tech.verificareolx.Olx_DataOutlet_Activity;
+import id.tech.verificareolx.Olx_DialogNamaOutlet;
 import id.tech.verificareolx.Olx_UpdateBranding_Activity;
 import id.tech.verificareolx.R;
 
@@ -68,7 +70,8 @@ public class Olx_RecyclerAdapter_MenuUtama extends
 
             switch (getAdapterPosition()) {
                 case 0:
-                    Intent load0 = new Intent(v.getContext(), Olx_DialogAbsen.class);
+//                    Intent load0 = new Intent(v.getContext(), Olx_DialogAbsen.class);
+                    Intent load0 = new Intent(v.getContext(), Olx_CameraCapture.class);
                     v.getContext().startActivity(load0);
 
                     break;

@@ -98,7 +98,6 @@ public class Olx_RecyclerAdapter_Gallery extends RecyclerView.Adapter<Olx_Recycl
             super(v);
             img = (ImageView) v.findViewById(R.id.img);
             this.activity = activity;
-
         }
 
     }

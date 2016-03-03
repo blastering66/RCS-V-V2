@@ -16,7 +16,7 @@ public class Parameter_Collections {
 //	public static String URL_FOLDER_IMG_ABSENSI = "/HTC/images/absensi";
 //	public static String URL_FOLDER_IMG_PENJUALAN = "/HTC/images/penjualan";
 //	public static String URL_FOLDER_IMG_PRODUK = "/HTC/images/produk";
-	public static String URL_FOLDER_IMG_ISSUE = "/OLX/images/indosat";
+	public static String URL_FOLDER_IMG_ISSUE = "/OLX/images/selfie";
 	public static String URL_FOLDER_IMG_ABSENSI = "/OLX/images/absensi";
 	public static String URL_FOLDER_IMG_PENJUALAN = "/OLX/images/penjualan";
 	public static String URL_FOLDER_IMG_PRODUK = "/OLX/images/produk";
