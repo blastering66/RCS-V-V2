@@ -1053,6 +1053,7 @@ public class Olx_ServiceHandlerJSON {
 			result = EntityUtils.toString(hEntity);
 
 			jObj = new JSONObject(result);
+			Log.e("jenis outlet = ", jObj.toString());
 		}catch (JSONException e) {
 
 		} catch (UnsupportedEncodingException e) {

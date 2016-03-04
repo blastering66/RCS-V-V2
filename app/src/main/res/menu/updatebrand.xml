@@ -4,7 +4,7 @@
     tools:context="com.rcs.htctools.Splashscreen_Activity" >
 
     <item
-        android:id="@+id/action_upload_photo"
+        android:id="@+id/action_send_updatebranding"
         android:title="Upload"
         android:menuCategory="system"
         android:icon="@android:drawable/ic_menu_upload"

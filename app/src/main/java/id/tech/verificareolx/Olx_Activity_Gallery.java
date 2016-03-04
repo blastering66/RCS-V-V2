@@ -110,7 +110,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.updatebrand, menu);
+        inflater.inflate(R.menu.upload_photo, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

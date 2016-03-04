@@ -158,7 +158,7 @@ public class Olx_MenuUtama_WP extends ActionBarActivity {
 				cCode = "0";
 
 			}catch (Exception e){
-
+				cCode = "0";
 			}
 
 			return null;
@@ -170,7 +170,11 @@ public class Olx_MenuUtama_WP extends ActionBarActivity {
 
 			if(cCode.equals("1")) {
 				rv_slider.setAdapter(adapter_slider);
-			}else{
+			}else if (cCode.equals("0")) {
+				Toast.makeText(getApplicationContext(), "Terjadi kesalahan, Silahkan Coba lagi", Toast.LENGTH_LONG).show();
+
+
+			} else {
 				Toast.makeText(getApplicationContext(), "Hubungi Admin untuk isi Target", Toast.LENGTH_LONG).show();
 				finish();
 

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +16,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +60,7 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
         nama_outlet = spf.getString(Parameter_Collections.SH_NAMA_OUTLET, "0");
         lati = spf.getString(Parameter_Collections.TAG_LATITUDE_NOW, "0");
         longi = spf.getString(Parameter_Collections.TAG_LONGITUDE_NOW, "0");
+
         getALlView();
     }
 
@@ -76,7 +83,34 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
             }
         });
 
-        new AsyncTask_GetJenis_Outlet().execute();
+        Gson gson = new Gson();
+        String json_jenisoutlet = spf.getString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, null);
+        Type type = new TypeToken<ArrayList<RowData_JenisOutlet>>() {}.getType();
+        ArrayList<RowData_JenisOutlet> array_jenis_outlet = gson.fromJson(json_jenisoutlet, type);
+
+        String[] nama_outlet = new String[array_jenis_outlet.size()];
+        for(int i=0; i < array_jenis_outlet.size(); i++){
+            nama_outlet[i] = array_jenis_outlet.get(i).nama_jenis_outlet;
+        }
+
+        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item,
+                nama_outlet);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_item );
+        spinner_jenis_outlet.setAdapter(spinnerAdapter);
+
+        spinner_jenis_outlet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected_id_jenis_outlet = String.valueOf(position +1);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selected_id_jenis_outlet = "1";
+            }
+        });
+//        new AsyncTask_GetJenis_Outlet().execute();
     }
 
     private class AsyncTask_GetJenis_Outlet extends AsyncTask<Void,Void,Void>{
@@ -184,7 +218,7 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
 
                 spf.edit().putString(Parameter_Collections.SH_KODE_OUTLET, kode_outlet).commit();
                 spf.edit().putBoolean(Parameter_Collections.SH_OUTLET_UPDATED, true).commit();
-
+                spf.edit().putBoolean(Parameter_Collections.SH_OUTLET_VISITED, false).commit();
                 Olx_DialogLocationConfirmation dialog = new Olx_DialogLocationConfirmation();
                 dialog.setContext(getApplicationContext());
                 dialog.setText("Input Data Outlet Success");

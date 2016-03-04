@@ -107,12 +107,15 @@
 
                 <ProgressBar
                     android:id="@+id/pg"
+                    android:visibility="gone"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
 
             <Spinner
                 android:padding="5dp"
                 android:id="@+id/spinner_jenis_outlet"
+                android:prompt="@array/jenis_outlet"
+                android:entries="@array/jenis_outlet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                  />

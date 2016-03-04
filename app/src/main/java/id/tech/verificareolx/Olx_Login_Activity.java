@@ -1,11 +1,14 @@
 package id.tech.verificareolx;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import id.tech.util.Parameter_Collections;
 import id.tech.util.Public_Functions;
 import id.tech.util.Olx_ServiceHandlerJSON;
+import id.tech.util.RowData_JenisOutlet;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +20,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Olx_Login_Activity extends ActionBarActivity {
 	Button btn_login;
@@ -70,8 +78,8 @@ public class Olx_Login_Activity extends ActionBarActivity {
 			if (Public_Functions.isNetworkAvailable(getApplicationContext())) {
 				// boolean b = true;
 				// if (b) {
-				Olx_ServiceHandlerJSON sh = new Olx_ServiceHandlerJSON();
-				JSONObject jObj = sh.json_login(cUsername, cPassword);
+				Olx_ServiceHandlerJSON olx_sh = new Olx_ServiceHandlerJSON();
+				JSONObject jObj = olx_sh.json_login(cUsername, cPassword);
 				Log.e("Result = 	", jObj.toString());
 
 				try {
@@ -94,6 +102,38 @@ public class Olx_Login_Activity extends ActionBarActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+
+				JSONObject jobj = olx_sh.json_get_jenis_outlet();
+
+				try{
+					String total_data = jobj.getString(Parameter_Collections.TAG_TOTAL_DATA);
+
+					if(!total_data.equals("0")){
+						JSONArray jsonArray = jobj.getJSONArray(Parameter_Collections.TAG_DATA);
+
+						List<RowData_JenisOutlet> array_jenis_outlet = new ArrayList<RowData_JenisOutlet>();
+
+						for(int i=0; i < jsonArray.length();i++){
+							JSONObject c = jsonArray.getJSONObject(i);
+
+							String id_jenis_outlet = c.getString(Parameter_Collections.TAG_ID_JENIS_OUTLET);
+							String nama_jenis_outlet = c.getString(Parameter_Collections.TAG_NAMA_JENIS_OUTLET);
+
+							Log.e("nama jenis outlet = ", nama_jenis_outlet);
+
+							array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+						}
+
+						Gson gson = new Gson();
+						String json_jenisoutlet = gson.toJson(array_jenis_outlet);
+						sh.edit().putString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, json_jenisoutlet).commit();
+
+
+					}
+				}catch (JSONException e){
+
+				}
+
 			} else {
 				isConnected = false;
 				cMessage = "No Internet Connections";

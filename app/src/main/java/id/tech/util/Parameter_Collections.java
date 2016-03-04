@@ -39,6 +39,7 @@ public class Parameter_Collections {
 	public static String SH_LAST_LOC = "last_location";
 
 	public static String SH_GCM_MESSAGE = "gcm_message";
+	public static String SH_STRINGSET_JENISOUTLET = "jenis_outlet";
 	
 	public static String SH_KODE_TOKO_SEMENTARA = "kode_toko_sementara";
 	public static String SH_PINDAH_TOKO = "pindah_toko";

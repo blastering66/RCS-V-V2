@@ -137,13 +137,12 @@
         <item>India</item>
     </string-array>
 
-    <string-array name="plan">
-        <item>Super Plan 100</item>
-        <item>Super Plan 200</item>
-        <item>Super Plan 400</item>
-        <item>Super Plan 600</item>
-        <item>Super Plan 900</item>
-        <item>Super Plan 1200</item>
+    <string-array name="jenis_outlet">
+        <item>Showroom</item>
+        <item>Grosir</item>
+        <item>Apotik</item>
+        <item>Babyshop</item>
+        <item>ToysShop</item>
     </string-array>
 
     <string-array name="kontrak">
