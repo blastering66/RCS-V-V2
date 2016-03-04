@@ -3,26 +3,20 @@ package id.tech.verificareolx;
 /**
  * Created by RebelCreative-A1 on 03/03/2016.
  */
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,8 +28,9 @@ import id.tech.util.Parameter_Collections;
 public class Olx_CameraCapture extends AppCompatActivity implements SurfaceHolder.Callback, Camera.ShutterCallback, Camera.PictureCallback{
     ActionBar ac;
     SurfaceView surfaceView;
-    ImageView capture;
+    ImageView btn_capture,btn_switch;
     Camera mCamera;
+    int id_CameraBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +39,23 @@ public class Olx_CameraCapture extends AppCompatActivity implements SurfaceHolde
 
         ac = getSupportActionBar();
         ac.hide();
-        capture = (ImageView)findViewById(R.id.btn_capture);
-        capture.setOnClickListener(new View.OnClickListener() {
+        btn_capture = (ImageView)findViewById(R.id.btn_capture);
+        btn_capture.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-               onSnapClick(v);
+                onSnapClick(v);
+            }
+        });
+        btn_switch = (ImageView)findViewById(R.id.btn_switch);
+        btn_switch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mCamera.release();
+                mCamera = Camera.open();
             }
         });
 
@@ -75,9 +80,9 @@ public class Olx_CameraCapture extends AppCompatActivity implements SurfaceHolde
             }
 
             mCamera = cam;
-            Toast.makeText(getApplicationContext(), "Camera Front Ada", Toast.LENGTH_LONG).show();
+
         }else{
-            Toast.makeText(getApplicationContext(), "Camera belakang Adanya", Toast.LENGTH_LONG).show();
+
             mCamera = Camera.open();
         }
 
@@ -221,12 +226,22 @@ public class Olx_CameraCapture extends AppCompatActivity implements SurfaceHolde
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Camera.Parameters params = mCamera.getParameters();
-        List<Camera.Size> sizes = params.getSupportedPreviewSizes();
-        Camera.Size selected = sizes.get(0);
-        params.setPreviewSize(selected.width,selected.height);
-        mCamera.setParameters(params);
+        Camera.CameraInfo info = new Camera.CameraInfo();
+        Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, info);
+        int rotation = this.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0: degrees = 0; break; //Natural orientation
+            case Surface.ROTATION_90: degrees = 90; break; //Landscape left
+            case Surface.ROTATION_180: degrees = 180; break;//Upside down
+            case Surface.ROTATION_270: degrees = 270; break;//Landscape right
+        }
+        int rotate = (info.orientation - degrees + 360) % 360;
 
+        //STEP #2: Set the 'rotation' parameter
+        Camera.Parameters params = mCamera.getParameters();
+        params.setRotation(rotate);
+        mCamera.setParameters(params);
         mCamera.setDisplayOrientation(90);
         mCamera.startPreview();
     }

@@ -70,8 +70,8 @@ public class Olx_RecyclerAdapter_MenuUtama extends
 
             switch (getAdapterPosition()) {
                 case 0:
-//                    Intent load0 = new Intent(v.getContext(), Olx_DialogAbsen.class);
-                    Intent load0 = new Intent(v.getContext(), Olx_CameraCapture.class);
+                    Intent load0 = new Intent(v.getContext(), Olx_DialogAbsen.class);
+//                    Intent load0 = new Intent(v.getContext(), Olx_CameraCapture.class);
                     v.getContext().startActivity(load0);
 
                     break;

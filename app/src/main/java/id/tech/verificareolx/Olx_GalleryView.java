@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -88,6 +89,10 @@ public class Olx_GalleryView extends AppCompatActivity implements Olx_RecyclerAd
             thumbnails = new Bitmap[count];
             arrPath = new String[count];
 
+            if(count > 30){
+                count = 30;
+                Log.e("count = ", "lbh dr 30");
+            }
             for (int i = 0; i < count; i++) {
                 imageCursor.moveToPosition(i);
                 int id = imageCursor.getInt(image_column_index);
