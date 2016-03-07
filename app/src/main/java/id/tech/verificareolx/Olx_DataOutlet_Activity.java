@@ -121,13 +121,13 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
                     case 4:
                         id_jenis_outlet = "5";
                         nama_jenis_outlet = "ToysShop";
-                        
+
                         array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
                         break;
                 }
 
                 Gson gson_temp = new Gson();
-                json_jenisoutlet_temp = gson.toJson(array_jenis_outlet);
+                json_jenisoutlet_temp = gson_temp.toJson(array_jenis_outlet);
                 spf.edit().putString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, json_jenisoutlet).commit();
 
             }

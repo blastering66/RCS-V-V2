@@ -107,12 +107,12 @@
     </style>
 
     <style name="MyLocationDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorAccent">@color/primaryColor</item>
         <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
         <!-- Used for the background -->
 
     </style>

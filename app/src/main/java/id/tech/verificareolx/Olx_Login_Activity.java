@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -79,10 +80,12 @@ public class Olx_Login_Activity extends ActionBarActivity {
 				// boolean b = true;
 				// if (b) {
 				Olx_ServiceHandlerJSON olx_sh = new Olx_ServiceHandlerJSON();
-				JSONObject jObj = olx_sh.json_login(cUsername, cPassword);
-				Log.e("Result = 	", jObj.toString());
 
 				try {
+					JSONObject jObj = olx_sh.json_login(cUsername, cPassword);
+//					JSONObject jObj = null;
+					Log.e("Result = 	", jObj.toString());
+
 					cCode = jObj.getString(Parameter_Collections.TAG_JSON_CODE);
 
 					if (cCode.equals("1")) {
@@ -101,6 +104,9 @@ public class Olx_Login_Activity extends ActionBarActivity {
 
 				} catch (JSONException e) {
 					e.printStackTrace();
+				}catch (NullPointerException e){
+//					Log.e("OLX errror = " , e.getMessage().toString() );
+					Toast.makeText(getApplicationContext(), "OLX error = " + e.getMessage().toString(), Toast.LENGTH_LONG).show();
 				}
 
 				JSONObject jobj = olx_sh.json_get_jenis_outlet();
