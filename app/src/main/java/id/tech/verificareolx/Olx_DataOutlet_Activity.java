@@ -85,18 +85,82 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
 
         Gson gson = new Gson();
         String json_jenisoutlet = spf.getString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, null);
-        Type type = new TypeToken<ArrayList<RowData_JenisOutlet>>() {}.getType();
-        ArrayList<RowData_JenisOutlet> array_jenis_outlet = gson.fromJson(json_jenisoutlet, type);
 
-        String[] nama_outlet = new String[array_jenis_outlet.size()];
-        for(int i=0; i < array_jenis_outlet.size(); i++){
-            nama_outlet[i] = array_jenis_outlet.get(i).nama_jenis_outlet;
+        if(json_jenisoutlet == null){
+            List<RowData_JenisOutlet> array_jenis_outlet = new ArrayList<RowData_JenisOutlet>();
+            String json_jenisoutlet_temp ="";
+            for (int i = 0; i < 4; i++) {
+                String id_jenis_outlet = "";
+                String nama_jenis_outlet = "";
+
+                switch (i){
+                    case 0:
+                        id_jenis_outlet = "1";
+                        nama_jenis_outlet = "Showroom";
+
+                        array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+                        break;
+                    case 1:
+                        id_jenis_outlet = "2";
+                        nama_jenis_outlet = "Grosir";
+
+                        array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+                        break;
+                    case 2:
+                        id_jenis_outlet = "3";
+                        nama_jenis_outlet = "Apotik";
+
+                        array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+                        break;
+                    case 3:
+                        id_jenis_outlet = "4";
+                        nama_jenis_outlet = "Babyshop";
+
+                        array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+                        break;
+                    case 4:
+                        id_jenis_outlet = "5";
+                        nama_jenis_outlet = "ToysShop";
+                        
+                        array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+                        break;
+                }
+
+                Gson gson_temp = new Gson();
+                json_jenisoutlet_temp = gson.toJson(array_jenis_outlet);
+                spf.edit().putString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, json_jenisoutlet).commit();
+
+            }
+
+            Type type = new TypeToken<ArrayList<RowData_JenisOutlet>>() {}.getType();
+            ArrayList<RowData_JenisOutlet> array_jenis_outlet_temp = gson.fromJson(json_jenisoutlet_temp, type);
+
+            String[] nama_outlet = new String[array_jenis_outlet_temp.size()];
+            for(int i=0; i < array_jenis_outlet_temp.size(); i++){
+                nama_outlet[i] = array_jenis_outlet_temp.get(i).nama_jenis_outlet;
+            }
+
+            final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item,
+                    nama_outlet);
+            spinnerAdapter.setDropDownViewResource(R.layout.spinner_item );
+            spinner_jenis_outlet.setAdapter(spinnerAdapter);
+
+        }else{
+            Type type = new TypeToken<ArrayList<RowData_JenisOutlet>>() {}.getType();
+            ArrayList<RowData_JenisOutlet> array_jenis_outlet = gson.fromJson(json_jenisoutlet, type);
+
+            String[] nama_outlet = new String[array_jenis_outlet.size()];
+            for(int i=0; i < array_jenis_outlet.size(); i++){
+                nama_outlet[i] = array_jenis_outlet.get(i).nama_jenis_outlet;
+            }
+
+            final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item,
+                    nama_outlet);
+            spinnerAdapter.setDropDownViewResource(R.layout.spinner_item );
+            spinner_jenis_outlet.setAdapter(spinnerAdapter);
         }
 
-        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item,
-                nama_outlet);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_item );
-        spinner_jenis_outlet.setAdapter(spinnerAdapter);
+
 
         spinner_jenis_outlet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

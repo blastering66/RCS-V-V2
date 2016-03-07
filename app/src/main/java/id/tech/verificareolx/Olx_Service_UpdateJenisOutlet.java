@@ -91,7 +91,6 @@ public class Olx_Service_UpdateJenisOutlet extends Service {
                         String nama_jenis_outlet = c.getString(Parameter_Collections.TAG_NAMA_JENIS_OUTLET);
 
                         Log.e("nama jenis outlet = ", nama_jenis_outlet);
-
                         array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
                     }
 
