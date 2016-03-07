@@ -121,6 +121,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 Public_Functions.delete_IssuePhoto();
                 Toast.makeText(getApplicationContext(), "Canceled. Images deleted", Toast.LENGTH_LONG).show();
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
                 break;
 
             case R.id.action_upload_photo:
@@ -155,6 +156,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
         Public_Functions.delete_IssuePhoto();
         Toast.makeText(getApplicationContext(), "Canceled. Images deleted", Toast.LENGTH_LONG).show();
         finish();
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
     }
 
     private class Async_SubmitGallery extends AsyncTask<Void, Void, String> {

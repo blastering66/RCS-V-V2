@@ -57,6 +57,7 @@ public class Olx_DialogLocationConfirmation extends DialogFragment{
 					getActivity().finish();
 				}else if(from == 9){
 					getActivity().finish();
+					getActivity().overridePendingTransition(android.R.anim.fade_in,R.anim.slide_out_right);
 				}else{
 					dismiss();
 				}

@@ -310,8 +310,15 @@ public class Olx_DataOutlet_Activity extends AppCompatActivity{
         switch(item.getItemId()){
             case android.R.id.home:
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
     }
 }

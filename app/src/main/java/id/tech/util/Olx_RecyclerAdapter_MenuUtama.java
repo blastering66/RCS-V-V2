@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
     private Context context;
     private SharedPreferences sh;
     private Activity activity;
+
 
     public Olx_RecyclerAdapter_MenuUtama(Context context, Activity activity) {
         // TODO Auto-generated constructor stub
@@ -68,6 +71,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
             // Toast.makeText(, "position = " + getAdapterPosition(),
             // Toast.LENGTH_SHORT).show();
 
+
             switch (getAdapterPosition()) {
                 case 0:
                     Intent load0 = new Intent(v.getContext(), Olx_DialogAbsen.class);
@@ -85,6 +89,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                                 Olx_DataOutlet_Activity.class);
                         v.getContext
                                 ().startActivity(loadHistory_Activity);
+                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     break;
                 case 2:
@@ -99,7 +104,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                         Intent load = new Intent(v.getContext(),
                                 Olx_UpdateBranding_Activity.class);
                         v.getContext().startActivity(load);
-
+                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
 
 
@@ -111,6 +116,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                                 Olx_Activity_Gallery.class);
                         v.getContext
                                 ().startActivity(loadHistory_Activity);
+                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                     } else {
                         showToast("Please absent first", v.getContext());
@@ -124,6 +130,7 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                                 Olx_Activity_History_TabSlider.class);
                         v.getContext
                                 ().startActivity(loadHistory_Activity);
+                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                     } else {
                         showToast("Please absent first", v.getContext());
@@ -149,12 +156,20 @@ public class Olx_RecyclerAdapter_MenuUtama extends
         // TODO Auto-generated method stub
         switch (arg1) {
             case 0:
+                Animation anim_from_left= AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
+                anim_from_left.setStartOffset(1000);
+                arg0.wrapper.startAnimation(anim_from_left);
+
                 arg0.img.setImageResource(R.drawable.menu_wp_absen);
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkblue));
                 arg0.tv_label.setText("Input Nama Outlet / User Baru");
                 break;
             case 1:
+
+                Animation anim_from_right = AnimationUtils.loadAnimation(context, R.anim.slide_in_right);
+                anim_from_right.setStartOffset(1500);
+                arg0.wrapper.startAnimation(anim_from_right);
                 arg0.img.setImageResource(R.drawable.menu_wp_outlet);
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkpurple));
@@ -164,6 +179,9 @@ public class Olx_RecyclerAdapter_MenuUtama extends
 
                 break;
             case 2:
+                Animation anim_from_left_1= AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
+                anim_from_left_1.setStartOffset(2000);
+                arg0.wrapper.startAnimation(anim_from_left_1);
                 arg0.img.setImageResource(R.drawable.menu_wp_history);
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkgreen));
@@ -172,6 +190,9 @@ public class Olx_RecyclerAdapter_MenuUtama extends
 
                 break;
             case 3:
+                Animation anim_from_right_2 = AnimationUtils.loadAnimation(context, R.anim.slide_in_right);
+                anim_from_right_2.setStartOffset(2500);
+                arg0.wrapper.startAnimation(anim_from_right_2);
                 arg0.img.setImageResource(R.drawable.menu_wp_gallery);
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkorange));
@@ -179,6 +200,9 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                 break;
 
             case 4:
+                Animation anim_from_left_03= AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
+                anim_from_left_03.setStartOffset(3000);
+                arg0.wrapper.startAnimation(anim_from_left_03);
                 arg0.img.setImageResource(R.drawable.menu_wp_cek_stok);
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkblue));

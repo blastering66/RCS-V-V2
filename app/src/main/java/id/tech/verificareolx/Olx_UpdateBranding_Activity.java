@@ -112,6 +112,7 @@ public class Olx_UpdateBranding_Activity extends ActionBarActivity{
 			Public_Functions.delete_IssuePhoto();
 			Toast.makeText(getApplicationContext(), "Canceled. Images deleted", Toast.LENGTH_LONG).show();
 			finish();
+			overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
 			break;
 			
 		case R.id.action_send_updatebranding:
@@ -163,6 +164,7 @@ public class Olx_UpdateBranding_Activity extends ActionBarActivity{
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		finish();
+		overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right);
 	}
 	
 	private class Async_SubmitUpdateBranding extends AsyncTask<Void, Void, String>{
