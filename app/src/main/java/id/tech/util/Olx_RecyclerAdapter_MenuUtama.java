@@ -175,8 +175,6 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                         R.color.color_wp_darkpurple));
 //			arg0.tv_label.setText("Input Penjualan");
                 arg0.tv_label.setText("Input Data Outlet / User");
-
-
                 break;
             case 2:
                 Animation anim_from_left_1= AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
@@ -186,7 +184,6 @@ public class Olx_RecyclerAdapter_MenuUtama extends
                 arg0.wrapper.setBackgroundColor(context.getResources().getColor(
                         R.color.color_wp_darkgreen));
                 arg0.tv_label.setText("Input Visit Activity");
-
 
                 break;
             case 3:
@@ -209,8 +206,6 @@ public class Olx_RecyclerAdapter_MenuUtama extends
 //			arg0.tv_label.setText("Info Toko");
                 arg0.tv_label.setText("History Activity");
                 break;
-
-
             default:
                 break;
         }
