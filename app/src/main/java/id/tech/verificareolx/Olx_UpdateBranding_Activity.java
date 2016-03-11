@@ -40,6 +40,10 @@ import id.tech.util.Parameter_Collections;
 import id.tech.util.Public_Functions;
 
 public class Olx_UpdateBranding_Activity extends ActionBarActivity{
+	public static  String empty_json_prefix = "{json_code: \"0\",error_message: \"";
+	public static  String empty_json_end = "\"}";
+
+
 	Button btn;
 	public static int CODE_UPLOAD = 111;
 	EditText ed_namatoko, ed_ket, ed_store_phone_regis, ed_store_email_regis, ed_store_username_regis, ed_nominal_topup;
@@ -374,8 +378,10 @@ public class Olx_UpdateBranding_Activity extends ActionBarActivity{
 				
 			}catch (MalformedURLException ex) {
 				ex.printStackTrace();
+				return empty_json_prefix + ex.getMessage().toString() + empty_json_end;
 			} catch (Exception e) {
 				e.printStackTrace();
+				return empty_json_prefix + e.getMessage().toString() + empty_json_end;
 			}
 			return respondMessage;
 		}

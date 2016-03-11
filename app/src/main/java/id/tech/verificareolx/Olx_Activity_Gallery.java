@@ -551,7 +551,7 @@ public class Olx_Activity_Gallery extends AppCompatActivity {
                 while ((ch = is.read()) != -1) {
                     buff.append((char) ch);
                 }
-                Log.e("publish", buff.toString());
+                Log.e("publish gallery", buff.toString());
 
                 jsonResult = new JSONObject(buff.toString());
                 dos.close();

@@ -31,6 +31,9 @@ import java.net.URL;
 import id.tech.util.Parameter_Collections;
 
 public class Olx_DialogNamaOutlet extends FragmentActivity{
+	public static  String empty_json_prefix = "{json_code: \"0\",error_message: \"";
+	public static  String empty_json_end = "\"}";
+
 	private EditText ed_NamaOutlet;
 //	private ImageView img_Selfie_Landscape,img_Selfie_Portrait;
 	private Button btn, btn_tgl;
@@ -338,8 +341,10 @@ public class Olx_DialogNamaOutlet extends FragmentActivity{
 
 			}catch (MalformedURLException ex) {
 				ex.printStackTrace();
+				return empty_json_prefix + ex.getMessage().toString() + empty_json_end;
 			} catch (Exception e) {
 				e.printStackTrace();
+				return empty_json_prefix + e.getMessage().toString() + empty_json_end;
 			}
 			return respondMessage;
 		}

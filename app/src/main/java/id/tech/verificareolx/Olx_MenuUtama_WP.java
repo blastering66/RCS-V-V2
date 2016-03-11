@@ -153,6 +153,8 @@ public class Olx_MenuUtama_WP extends ActionBarActivity {
 					adapter_slider = new RecyclerAdapter_Slider(cNama_Pegawai, cUrl_ImgProfilePic, getApplicationContext(),
 							activity, getSupportFragmentManager(),cTotalVisited, cTotalVisited_All,sp);
 
+				}else{
+					cCode = "0";
 				}
 			}catch (JSONException e){
 				cCode = "0";

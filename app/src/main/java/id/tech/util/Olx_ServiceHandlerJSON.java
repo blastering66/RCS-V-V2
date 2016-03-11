@@ -28,6 +28,9 @@ public class Olx_ServiceHandlerJSON {
 	private HttpEntity hEntity;
 	private HttpResponse hResponse;
 
+	private String empty_json_prefix = "{json_code: \"0\",error_message: \"";
+	private String empty_json_end = "\"}";
+
 	public Olx_ServiceHandlerJSON() {
 		// TODO Auto-generated constructor stub
 		hClient = new DefaultHttpClient();
@@ -108,17 +111,59 @@ public class Olx_ServiceHandlerJSON {
 			HttpGet hGet = new HttpGet(url);
 			hResponse = hClient.execute(hGet);
 			hEntity = hResponse.getEntity();
+//			hEntity = null;
 			result = EntityUtils.toString(hEntity);
 			
 			jObj = new JSONObject(result);
 		}catch (JSONException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
+			return jObj;
 		} catch (UnsupportedEncodingException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
+			return jObj;
 		} catch (ClientProtocolException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+			return jObj;
 		} catch (IOException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+			return jObj;
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+			return jObj;
+
+		}catch (Exception e) {
+			// TODO: handle exception
+			Log.e("Exception = ", e.getMessage().toString());
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+			return jObj;
+
 		}
 		return jObj;
 	}
@@ -563,13 +608,37 @@ public class Olx_ServiceHandlerJSON {
 			
 			jObj = new JSONObject(result);
 		}catch (JSONException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
 		} catch (UnsupportedEncodingException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
 		} catch (ClientProtocolException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		} catch (IOException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+		}catch (Exception e){
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		}
 		return jObj;
 	}
@@ -740,7 +809,7 @@ public class Olx_ServiceHandlerJSON {
 				sb.append(data.get(i).id_toko +",");
 			}
 
-			sb.deleteCharAt(sb.length()-1);
+			sb.deleteCharAt(sb.length() - 1);
 
 			url = Parameter_Collections.URL_INSERT+ URLEncodedUtils.format(params, Parameter_Collections.UTF);
 			url = url+ "&id_toko=" +sb.toString();
@@ -880,15 +949,40 @@ public class Olx_ServiceHandlerJSON {
 			hEntity = hResponse.getEntity();
 			result = EntityUtils.toString(hEntity);
 
+			Log.e("Result json = ", result);
 			jObj = new JSONObject(result);
 		}catch (JSONException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
 		} catch (UnsupportedEncodingException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
 
+			}
 		} catch (ClientProtocolException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		} catch (IOException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+		}catch (Exception e){
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		}
 		return jObj;
 	}
@@ -1030,13 +1124,39 @@ public class Olx_ServiceHandlerJSON {
 //			Log.e("result", result);
 			jObj = new JSONObject(result);
 		}catch (JSONException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 
 		} catch (UnsupportedEncodingException e) {
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 
 		} catch (ClientProtocolException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		} catch (IOException e) {
 			// TODO: handle exception
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
+		}catch (Exception e){
+			try{
+				jObj = new JSONObject(empty_json_prefix + e.getMessage().toString() + empty_json_end);
+			}catch (JSONException ee){
+
+			}
 		}
 		return jObj;
 	}

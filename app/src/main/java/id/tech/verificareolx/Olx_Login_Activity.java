@@ -124,33 +124,45 @@ public class Olx_Login_Activity extends ActionBarActivity {
 
 				JSONObject jobj = olx_sh.json_get_jenis_outlet();
 
+
+
 				try{
-					String total_data = jobj.getString(Parameter_Collections.TAG_TOTAL_DATA);
+					cCode = jobj.getString(Parameter_Collections.TAG_JSON_CODE);
 
-					if(!total_data.equals("0")){
-						JSONArray jsonArray = jobj.getJSONArray(Parameter_Collections.TAG_DATA);
+					if(cCode.equals("1")){
+						String total_data = jobj.getString(Parameter_Collections.TAG_TOTAL_DATA);
 
-						List<RowData_JenisOutlet> array_jenis_outlet = new ArrayList<RowData_JenisOutlet>();
+						if(!total_data.equals("0")){
+							JSONArray jsonArray = jobj.getJSONArray(Parameter_Collections.TAG_DATA);
 
-						for(int i=0; i < jsonArray.length();i++){
-							JSONObject c = jsonArray.getJSONObject(i);
+							List<RowData_JenisOutlet> array_jenis_outlet = new ArrayList<RowData_JenisOutlet>();
 
-							String id_jenis_outlet = c.getString(Parameter_Collections.TAG_ID_JENIS_OUTLET);
-							String nama_jenis_outlet = c.getString(Parameter_Collections.TAG_NAMA_JENIS_OUTLET);
+							for(int i=0; i < jsonArray.length();i++){
+								JSONObject c = jsonArray.getJSONObject(i);
 
-							Log.e("nama jenis outlet = ", nama_jenis_outlet);
+								String id_jenis_outlet = c.getString(Parameter_Collections.TAG_ID_JENIS_OUTLET);
+								String nama_jenis_outlet = c.getString(Parameter_Collections.TAG_NAMA_JENIS_OUTLET);
 
-							array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+								Log.e("nama jenis outlet = ", nama_jenis_outlet);
+
+								array_jenis_outlet.add(new RowData_JenisOutlet(id_jenis_outlet, nama_jenis_outlet));
+							}
+
+							Gson gson = new Gson();
+							String json_jenisoutlet = gson.toJson(array_jenis_outlet);
+							sh.edit().putString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, json_jenisoutlet).commit();
+
+
 						}
-
-						Gson gson = new Gson();
-						String json_jenisoutlet = gson.toJson(array_jenis_outlet);
-						sh.edit().putString(Parameter_Collections.SH_STRINGSET_JENISOUTLET, json_jenisoutlet).commit();
-
-
+					}else{
+						isConnected = false;
+						cMessage =  jobj
+								.getString(Parameter_Collections.TAG_JSON_MESSAGE);
 					}
-				}catch (JSONException e){
 
+				}catch (JSONException e){
+					isConnected = false;
+					cMessage = "Error JSON from Server";
 				}
 
 			} else {
