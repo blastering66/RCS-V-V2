@@ -4,10 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import id.tech.POJO.OlxOutlet;
 import id.tech.util.Parameter_Collections;
 import id.tech.util.Public_Functions;
 import id.tech.util.Olx_ServiceHandlerJSON;
 import id.tech.util.RowData_JenisOutlet;
+import retrofit.Callback;
+import retrofit.RestAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +32,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import id.tech.util.Test_RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class Olx_Login_Activity extends ActionBarActivity {
 	Button btn_login;
@@ -67,10 +73,28 @@ public class Olx_Login_Activity extends ActionBarActivity {
 				new Async_Login().execute();
 			}
 		});
+
+//		String url = "http://verificare-activation.com/api";
+//		RestAdapter test_adapter = new RestAdapter.Builder().setEndpoint(url).build();
+//
+//		Test_RestAdapter restAdapter = test_adapter.create(Test_RestAdapter.class);
+//		restAdapter.getOutlet(new Callback<OlxOutlet>() {
+//			@Override
+//			public void success(OlxOutlet olxOutlet, Response response) {
+//				String namaOutlet = olxOutlet.getData().get(0).getNamaOutlet();
+//				Toast.makeText(getApplicationContext(), namaOutlet, Toast.LENGTH_LONG).show();
+//			}
+//
+//			@Override
+//			public void failure(RetrofitError error) {
+//				Toast.makeText(getApplicationContext(),"Erro = " + error.getMessage().toString(), Toast.LENGTH_LONG).show();
+//			}
+//		});
+
 	}
 
 	private class Async_Login extends AsyncTask<Void, Void, String> {
-		String cUsername, cPassword, cCode, cMessage, cIdPegawai, cJabatan;
+		String cUsername, cPassword, cCode,cCode_2, cMessage, cIdPegawai, cJabatan;
 		Olx_DialogFragmentProgress dialogProgress;
 		boolean isConnected = true;
 
@@ -127,9 +151,9 @@ public class Olx_Login_Activity extends ActionBarActivity {
 
 
 				try{
-					cCode = jobj.getString(Parameter_Collections.TAG_JSON_CODE);
+					cCode_2 = jobj.getString(Parameter_Collections.TAG_JSON_CODE);
 
-					if(cCode.equals("1")){
+					if(cCode_2.equals("1")){
 						String total_data = jobj.getString(Parameter_Collections.TAG_TOTAL_DATA);
 
 						if(!total_data.equals("0")){
